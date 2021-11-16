@@ -2,12 +2,13 @@ import React from 'react';
 
 //if any of route dousent fit we used redirect to basik route
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 //used 4 choosing one of incertad routes according browser find row
 import { privateRoutes, publicRoutes, RouteNames } from '../routes/routes';
 
 const AppRouter = () => {
-    const isAuth = true;
+    const isAuth = useTypedSelector(state => state.authReducer.isAuth);
 
     //if user in adress row entered some fake adress we use Redirect 4 send him to fixed page
     return (

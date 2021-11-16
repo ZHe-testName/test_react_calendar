@@ -1,5 +1,6 @@
 import { Layout, Menu } from "antd";
 import { useHistory } from "react-router";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 import { RouteNames } from "../routes/routes";
 
 const Navbar = () => {
@@ -9,7 +10,8 @@ const Navbar = () => {
     //and put into route path
     const router = useHistory();
 
-    const isAuth = true;
+    const isAuth = useTypedSelector(state => state.authReducer.isAuth);
+    console.log(isAuth);
 
     return (
             <Layout.Header>

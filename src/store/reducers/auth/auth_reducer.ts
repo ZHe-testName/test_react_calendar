@@ -9,7 +9,7 @@ const authReducer = (state: AuthStateType = initialState, action: AuthActionsTyp
         case AuthActionEnum.SET_AUTH: {
             return {
                 ...state,
-                isAuth: action.payload
+                isAuth: action.payload,
             };
         }
 
