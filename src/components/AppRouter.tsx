@@ -7,7 +7,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { privateRoutes, publicRoutes, RouteNames } from '../routes/routes';
 
 const AppRouter = () => {
-    const isAuth = false;
+    const isAuth = true;
 
     //if user in adress row entered some fake adress we use Redirect 4 send him to fixed page
     return (
