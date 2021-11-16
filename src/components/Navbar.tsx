@@ -11,7 +11,6 @@ const Navbar = () => {
     const router = useHistory();
 
     const isAuth = useTypedSelector(state => state.authReducer.isAuth);
-    console.log(isAuth);
 
     return (
             <Layout.Header>
