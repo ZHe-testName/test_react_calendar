@@ -15,15 +15,19 @@ const Navbar = () => {
             <Layout.Header>
                     {
                         isAuth
-                        
+
                             ?<Menu theme='dark' mode='horizontal' selectable={false} style={{justifyContent: 'flex-end'}}>
-                                    <Menu.Item style={{color: 'white'}} disabled={true}>
+                                    <Menu.Item 
+                                        style={{color: 'white',
+                                                cursor: 'auto'}} 
+                                        disabled={true}
+                                        key={1}>
                                         Zhekanchik
                                     </Menu.Item>
 
                                     <Menu.Item 
                                         onClick={() => console.log('hi')} 
-                                        key={1}>Logoff</Menu.Item>
+                                        key={2}>Logoff</Menu.Item>
                                 </Menu>
                            
                             :<Menu theme='dark' mode='horizontal' selectable={false} style={{justifyContent: 'flex-end'}}>
