@@ -3,7 +3,7 @@ import { UserType } from '../../../models/models';
 export interface AuthStateType {
     isAuth: boolean,
     user: UserType,
-    isLoaing: boolean,
+    isLoading: boolean,
     error: string,
 };
 

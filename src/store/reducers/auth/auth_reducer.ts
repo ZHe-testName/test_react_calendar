@@ -1,10 +1,12 @@
+import axios from 'axios';
 import { UserType } from "../../../models/models";
 import { AuthActionEnum, AuthActionsTypes, AuthStateType } from "./types";
+import { Dispatch } from "redux";
 
 const initialState: AuthStateType = {
     isAuth: false,
     user: {} as UserType,
-    isLoaing: false,
+    isLoading: false,
     error: '',
 };
 
@@ -31,10 +33,10 @@ const authReducer = (state: AuthStateType = initialState, action: AuthActionsTyp
             };
         }
 
-        case AuthActionEnum.SET_AUTH: {
+        case AuthActionEnum.SWITCH_IS_LOAD: {
             return {
                 ...state,
-                isLoaing: action.payload,
+                isLoading: action.payload,
             };
         }
 
@@ -47,8 +49,47 @@ const authReducer = (state: AuthStateType = initialState, action: AuthActionsTyp
 export const authActionCreators = {
     setUser: (user: UserType): AuthActionsTypes => ({type: AuthActionEnum.SET_USER, payload: user}),
     setError: (error: string): AuthActionsTypes => ({type: AuthActionEnum.SET_ERROR, payload: error}),
-    setIsLoading: (isAuth: boolean): AuthActionsTypes => ({type: AuthActionEnum.SET_AUTH, payload: isAuth}),
+    setIsAuth: (isAuth: boolean): AuthActionsTypes => ({type: AuthActionEnum.SET_AUTH, payload: isAuth}),
     switchIsLoading: (isLoading: boolean): AuthActionsTypes => ({type: AuthActionEnum.SWITCH_IS_LOAD, payload: isLoading}),
+
+    login: (username: string, password: string) => async (dispatch: Dispatch) => {
+        try {
+            dispatch(authActionCreators.switchIsLoading(true));
+            dispatch(authActionCreators.setError(''));
+
+            setTimeout( async () => {
+                const mockUser = await axios.get<UserType[]>('./users.json')
+                    .then(res => res.data.find(user => user.username === username 
+                                                        && user.password === password));
+
+                    if (!mockUser){
+                        dispatch(authActionCreators.setError('Entered uncorect username or password!'));
+                        dispatch(authActionCreators.switchIsLoading(false));
+
+                        return;
+                    };
+
+
+                    localStorage.setItem('auth', 'true');
+                    localStorage.setItem('user', mockUser.username);
+
+                    dispatch(authActionCreators.setUser(mockUser));
+                    dispatch(authActionCreators.setIsAuth(true));
+                    dispatch(authActionCreators.switchIsLoading(false));
+           }, 1500);
+
+        } catch (error) {
+            dispatch(authActionCreators.setError('Error'));
+        }
+    },
+
+    logout: () => (dispatch: Dispatch) => {
+        localStorage.removeItem('auth');
+        localStorage.removeItem('user');
+
+        dispatch(authActionCreators.setIsAuth(false));
+        dispatch(authActionCreators.setUser({} as UserType));
+    },
 };
 
 export default authReducer;

@@ -1,5 +1,6 @@
 import { Layout, Menu } from "antd";
 import { useHistory } from "react-router";
+import { useDispatchedActions } from "../hooks/useDispatchedActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { RouteNames } from "../routes/routes";
 
@@ -11,6 +12,8 @@ const Navbar = () => {
     const router = useHistory();
 
     const isAuth = useTypedSelector(state => state.authReducer.isAuth);
+
+    const { logout } = useDispatchedActions();
 
     return (
             <Layout.Header>
@@ -27,7 +30,7 @@ const Navbar = () => {
                                     </Menu.Item>
 
                                     <Menu.Item 
-                                        onClick={() => console.log('hi')} 
+                                        onClick={() => { logout() }} 
                                         key={2}>Logoff</Menu.Item>
                                 </Menu>
                            
