@@ -1,7 +1,7 @@
 import { Form, Input, Button, Checkbox } from 'antd';
 import { useDispatchedActions } from '../hooks/useDispatchedActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { UserType } from '../models/models';
+import { UserType } from '../models/IUser';
 import rules from '../utils/formValidatorRules';
 
 const LoginForm = () => {

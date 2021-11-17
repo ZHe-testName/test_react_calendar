@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { UserType } from "../../../models/models";
+import { UserType } from "../../../models/IUser";
 import { AuthActionEnum, AuthActionsTypes, AuthStateType } from "./types";
 import { Dispatch } from "redux";
+import UserService from '../../../services/UserService';
 
 const initialState: AuthStateType = {
     isAuth: false,
@@ -58,7 +58,7 @@ export const authActionCreators = {
             dispatch(authActionCreators.setError(''));
 
             setTimeout( async () => {
-                const mockUser = await axios.get<UserType[]>('./users.json')
+                const mockUser = await UserService.getUsers()
                     .then(res => res.data.find(user => user.username === username 
                                                         && user.password === password));
 

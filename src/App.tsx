@@ -4,7 +4,7 @@ import './App.css';
 import AppRouter from './components/AppRouter';
 import Navbar from './components/Navbar';
 import { useDispatchedActions } from './hooks/useDispatchedActions';
-import { UserType } from './models/models';
+import { UserType } from './models/IUser';
 
 const App: FC = () => {
   const {setIsAuth, setUser} = useDispatchedActions();
@@ -16,7 +16,7 @@ const App: FC = () => {
       setUser({username : localStorage.getItem('user' || '')} as UserType);
     };
   }, []);
-  
+
   return (
     <Layout>
       <div className="App">

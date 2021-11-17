@@ -11,7 +11,7 @@ const Navbar = () => {
     //and put into route path
     const router = useHistory();
 
-    const isAuth = useTypedSelector(state => state.authReducer.isAuth);
+    const { isAuth, user } = useTypedSelector(state => state.authReducer);
 
     const { logout } = useDispatchedActions();
 
@@ -26,7 +26,7 @@ const Navbar = () => {
                                                 cursor: 'auto'}} 
                                         disabled={true}
                                         key={1}>
-                                        Zhekanchik
+                                        { user.username }
                                     </Menu.Item>
 
                                     <Menu.Item 
