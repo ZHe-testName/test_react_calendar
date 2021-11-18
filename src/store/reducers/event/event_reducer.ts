@@ -44,6 +44,35 @@ export const eventsActionCreators = {
             console.log(error);
         }
     },
+
+    createEventThunk: (event: IEventType) => async (dispatch: Dispatch) => {
+        try {
+            const events = localStorage.getItem('events') || '[]';
+
+            const json = JSON.parse(events) as IEventType[];
+            json.push(event);
+
+            dispatch(eventsActionCreators.setEvents(json));
+
+            localStorage.setItem('events', JSON.stringify(json));
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
+    fetchEventThunk: (username: string) => (dispatch: Dispatch) => {
+        try {
+            const events = localStorage.getItem('events') || '[]';
+
+            const json = JSON.parse(events) as IEventType[];
+
+            const currentUserEventsArr = json.filter(event => event.guest === username);
+
+            dispatch(eventsActionCreators.setEvents(currentUserEventsArr));
+        } catch (error) {
+            console.log(error);
+        }
+    },
 };
 
 export default eventReducer;

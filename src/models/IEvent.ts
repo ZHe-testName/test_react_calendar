@@ -1,6 +1,6 @@
 export interface IEventType {
     author: string,
-    gust: string,
+    guest: string,
     date: string,
     description: string,
 };

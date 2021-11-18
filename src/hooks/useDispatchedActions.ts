@@ -4,7 +4,7 @@ import { actoinCreators } from '../store/reducers/actionCreators';
 
 //custom hook 4 optymization dispatching of actions
 //we can take actioncreators in any part of program
-//and call only reurned function
+//and call only requried function
 export const useDispatchedActions = () => {
     const dispatch = useDispatch();
 

@@ -4,21 +4,31 @@ import EventCalendar from "../components/EventCalendar";
 import EventForm from "../components/EventForm";
 import { useDispatchedActions } from "../hooks/useDispatchedActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import { IEventType } from "../models/IEvent";
 
 const Events: FC = () => {
     const [isVisible, setIsVisible] = useState(false);
 
-    const { fetchUsersThunk } = useDispatchedActions();
-    const { guests } = useTypedSelector(state => state.eventReducer)
+    const { fetchUsersThunk, createEventThunk, fetchEventThunk } = useDispatchedActions();
+    const { guests, events } = useTypedSelector(state => state.eventReducer);
+    const { user } = useTypedSelector(state => state.authReducer);
 
     useEffect(() => {
         fetchUsersThunk();
-    }, [])
+
+        fetchEventThunk(user.username);
+    }, []);
+
+    const submit = (event: IEventType) => {
+        createEventThunk(event);
+
+        setIsVisible(false);
+    };
 
     return (
         <div>
-            <EventCalendar events={[]}/>
-
+            <EventCalendar events={ events }/>
+            
             <Row justify='center' style={{margin: '20px 0px'}}>
                 <Button
                     size='large'
@@ -36,7 +46,7 @@ const Events: FC = () => {
 
                 <p>Create an event task for some one...</p>
 
-                <EventForm guests={ guests }/>
+                <EventForm guests={ guests } submit={ submit }/>
             </Modal>
         </div>
     );
