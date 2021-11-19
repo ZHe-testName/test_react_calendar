@@ -20,7 +20,7 @@ const Events: FC = () => {
     }, []);
 
     const submit = (event: IEventType) => {
-        createEventThunk(event);
+        createEventThunk(event, user.username);
 
         setIsVisible(false);
     };

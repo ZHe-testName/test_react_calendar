@@ -14,9 +14,12 @@ const EventCalendar: FC<IEventCalendarProps> = ({ events }) => {
 
         const dayEventsArr = events.filter(event => event.date === date);
         return (
-          <div>
+          <div onClick={() => console.log(events)}>
               {
-                  dayEventsArr.map(event => <Badge status='success' text={event.description} />)
+                  dayEventsArr.map((event, i) => <Badge 
+                                                    key={i} 
+                                                    status='success' 
+                                                    text={event.description} />)
               }
           </div>
         );

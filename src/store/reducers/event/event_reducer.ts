@@ -45,14 +45,16 @@ export const eventsActionCreators = {
         }
     },
 
-    createEventThunk: (event: IEventType) => async (dispatch: Dispatch) => {
+    createEventThunk: (event: IEventType, username: string) => async (dispatch: Dispatch) => {
         try {
             const events = localStorage.getItem('events') || '[]';
 
             const json = JSON.parse(events) as IEventType[];
             json.push(event);
 
-            dispatch(eventsActionCreators.setEvents(json));
+            const currentUserEventsArr = json.filter(event => event.guest === username);
+
+            dispatch(eventsActionCreators.setEvents(currentUserEventsArr));
 
             localStorage.setItem('events', JSON.stringify(json));
         } catch (error) {

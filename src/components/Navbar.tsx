@@ -5,7 +5,7 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import { RouteNames } from "../routes/routes";
 
 const Navbar = () => {
-    //create obj router with hook udeHistory
+    //create obj router with hook useHistory
     //it needs 4 switching between our routes
     //4 that we used proprty func push()
     //and put into route path
