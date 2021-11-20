@@ -60,7 +60,6 @@ const Events: FC = () => {
                 visible={isModalVisible}
                 footer={null}
                 onCancel={() => {
-                    console.log(isModalVisible);
                     setIsModalVisible(false)
                 }}>
 

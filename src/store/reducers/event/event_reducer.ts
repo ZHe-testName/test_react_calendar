@@ -27,7 +27,6 @@ const eventReducer = (state: EventState = initialState, action: EventActionsType
         }
 
         case EventsActionEnum.SET_SELECTED_DATE: {
-            console.log(action.payload);
             return {
                 ...state,
                 selectDate: action.payload,
