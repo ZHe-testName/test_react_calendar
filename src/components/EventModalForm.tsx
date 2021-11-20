@@ -1,4 +1,4 @@
-import { Avatar, Form, Typography } from "antd";
+import { Avatar, Badge, Form, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { FC } from "react";
 import { IEventType } from "../models/IEvent";
@@ -40,6 +40,20 @@ const EventModalForm: FC<EventModalFormPropsType> = ({ events, selectDate }) => 
                                     style={{marginRight: '10px'}}/>
 
                                     {author}    
+                            </div>
+
+                            <div style={{
+                                            display: 'flex', 
+                                            flexDirection: 'column'}}>
+                                {
+                                    thisDateEvents
+                                        .filter(event => event.author === author)
+                                        .map((event, i) => <Badge 
+                                                            key={i}
+                                                            status='success'
+                                                            text={event.description}
+                                                            style={{marginLeft: '40px'}}/>)
+                                }
                             </div>
                         </Form.Item>
                     ))
