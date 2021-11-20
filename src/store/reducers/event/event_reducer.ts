@@ -7,6 +7,7 @@ import { EventActionsType, EventsActionEnum, EventState } from "./types";
 const initialState: EventState = {
     events: [],
     guests: [],
+    selectDate: '',
 };
 
 const eventReducer = (state: EventState = initialState, action: EventActionsType): EventState => {
@@ -25,6 +26,14 @@ const eventReducer = (state: EventState = initialState, action: EventActionsType
             };
         }
 
+        case EventsActionEnum.SET_SELECTED_DATE: {
+            console.log(action.payload);
+            return {
+                ...state,
+                selectDate: action.payload,
+            };
+        }
+
         default: {
             return state;
         }
@@ -34,6 +43,7 @@ const eventReducer = (state: EventState = initialState, action: EventActionsType
 export const eventsActionCreators = {
     setUsers: (users: UserType[]): EventActionsType => ({type: EventsActionEnum.SET_USERS, payload: users}),
     setEvents: (events: IEventType[]): EventActionsType => ({type: EventsActionEnum.SET_EVENTS, payload: events}),
+    setSelectedDate: (date: string): EventActionsType => ({type: EventsActionEnum.SET_SELECTED_DATE, payload: date}),
 
     fetchUsersThunk: () => async (dispatch: Dispatch) => {
         try {
