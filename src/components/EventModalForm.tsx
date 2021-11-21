@@ -1,4 +1,4 @@
-import { Avatar, Badge, Checkbox, Divider, Form, Typography } from "antd";
+import { Avatar, Badge, Checkbox, Form, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { FC } from "react";
 import { IEventType } from "../models/IEvent";

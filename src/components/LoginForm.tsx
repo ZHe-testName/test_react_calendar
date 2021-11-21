@@ -1,4 +1,4 @@
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { useDispatchedActions } from '../hooks/useDispatchedActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { UserType } from '../models/IUser';

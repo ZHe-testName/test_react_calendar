@@ -24,14 +24,15 @@ const EventCalendar: FC<IEventCalendarProps> = ({ events, showEventModal }) => {
 
         const dayEventsArr = events.filter(event => event.date === date);
         return (
-          <div>
+          <ul style={{listStyleType: 'none', padding: '0px'}}>
               {
-                  dayEventsArr.map(event => <Badge 
-                                                    key={event.id} 
-                                                    status={event.isDone ? 'default' : 'success' }
-                                                    text={event.description} />)
+                  dayEventsArr.map(event => <li key={event.id} >
+                      <Badge 
+                            status={event.isDone ? 'default' : 'success' }
+                            text={event.description} />
+                  </li>)
               }
-          </div>
+          </ul>
         );
       };
 
