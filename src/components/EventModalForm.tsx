@@ -14,13 +14,12 @@ const EventModalForm: FC<EventModalFormPropsType> = ({ events, selectDate }) => 
     const { fetchIsDoneThunk } = useDispatchedActions();
 
     const thisDateEventsAuthors: string[] = [];
+    const { user } = useTypedSelector(state => state.authReducer)
     
     const thisDateEvents = events.filter(event => event.date === selectDate);
 
     new Set(thisDateEvents.map(event => event.author))
         .forEach(author => thisDateEventsAuthors.push(author));
-
-        console.log(events);
 
     return (
         <Form>
@@ -58,12 +57,12 @@ const EventModalForm: FC<EventModalFormPropsType> = ({ events, selectDate }) => 
                                         .map(event => <div>
                                             <Badge 
                                                             key={event.id}
-                                                            status='success'
+                                                            status={event.isDone ? 'default' : 'success'}
                                                             text={event.description}
                                                             style={{marginLeft: '40px'}}/>
 
                                             <Checkbox 
-                                                onChange={() => {fetchIsDoneThunk(!event.isDone, event.id)}}
+                                                onChange={() => {fetchIsDoneThunk(!event.isDone, event.id, user.username)}}
                                                 checked={event.isDone}
                                                 style={{marginLeft: '40px'}}>
                                                 Done

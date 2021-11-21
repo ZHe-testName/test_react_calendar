@@ -14,6 +14,7 @@ const Events: FC = () => {
     const { fetchUsersThunk, createEventThunk, fetchEventThunk } = useDispatchedActions();
     const { guests, events, selectDate } = useTypedSelector(state => state.eventReducer);
     const { user } = useTypedSelector(state => state.authReducer);
+    console.log(user.username);
 
     useEffect(() => {
         fetchUsersThunk();
