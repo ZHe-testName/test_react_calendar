@@ -20,13 +20,13 @@ const EventForm: FC<EventFormPropsType> = ({ guests, submit }) => {
         description: '',
         guest: '',
         isDone: false,
-        id: v1(),
+        id: '',
     });
 
     const { user } = useTypedSelector(state => state.authReducer);
 
     const onFinish = () => {
-        submit({...event, author: user.username});
+        submit({...event, author: user.username, id: v1()});
     };
 
     const setDate = (date: Moment | null) => {

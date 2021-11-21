@@ -89,7 +89,6 @@ export const eventsActionCreators = {
             const events = localStorage.getItem('events') || '[]';
 
             const json = JSON.parse(events) as IEventType[];
-            console.log(json);
 
             const currentUserEventsArr = json.filter(event => event.guest === username);
 
@@ -104,15 +103,14 @@ export const eventsActionCreators = {
             const events = localStorage.getItem('events') || '[]';
 
             const json = JSON.parse(events) as IEventType[];
-            // .filter(event => event.guest === username)
-            const newEvents = json
-                                    .map(event => event.id === eventId
+
+            const newEvents = json.map(event => event.id === eventId
                                                                     ? {...event, isDone: isDone}
                                                                     : event);
 
-            dispatch(eventsActionCreators.setEvents(newEvents));
+            localStorage.setItem('events', JSON.stringify(newEvents));                                                      
 
-            localStorage.setItem('events', JSON.stringify(newEvents));
+            dispatch(eventsActionCreators.setEvents(newEvents.filter(event => event.guest === username)));
         } catch (error) {
             console.log(error);
         }

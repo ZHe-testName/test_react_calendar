@@ -32,8 +32,9 @@ const EventModalForm: FC<EventModalFormPropsType> = ({ events, selectDate }) => 
                             No any events for this date.
                         </Typography.Text>
 
-                    : thisDateEventsAuthors.map(author => (
+                    : thisDateEventsAuthors.map((author, i) => (
                         <Form.Item
+                            key={author + i}
                             label='author'>
                             <div>
                                 <Avatar 
@@ -54,14 +55,13 @@ const EventModalForm: FC<EventModalFormPropsType> = ({ events, selectDate }) => 
                                 {
                                     thisDateEvents
                                         .filter(event => event.author === author)
-                                        .map(event => <div>
+                                        .map(event => <div key={event.id}>
                                             <Badge 
-                                                            key={event.id}
-                                                            status={event.isDone ? 'default' : 'success'}
-                                                            text={event.description}
-                                                            style={{marginLeft: '40px'}}/>
+                                                status={event.isDone ? 'default' : 'success'}
+                                                text={event.description}
+                                                style={{marginLeft: '40px'}}/>
 
-                                            <Checkbox 
+                                            <Checkbox
                                                 onChange={() => {fetchIsDoneThunk(!event.isDone, event.id, user.username)}}
                                                 checked={event.isDone}
                                                 style={{marginLeft: '40px'}}>
