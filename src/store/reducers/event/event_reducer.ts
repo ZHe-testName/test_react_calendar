@@ -33,14 +33,14 @@ const eventReducer = (state: EventState = initialState, action: EventActionsType
             };
         }
 
-        case EventsActionEnum.SET_IS_DONE: {
-            return {
-                ...state,
-                events: state.events.map(event => event.id === action.payload.eventId
-                                                                                    ? {...event, isDone: action.payload.isDone}
-                                                                                    : event),
-            };
-        }
+        // case EventsActionEnum.SET_IS_DONE: {
+        //     return {
+        //         ...state,
+        //         events: state.events.map(event => event.id === action.payload.eventId
+        //                                                                             ? {...event, isDone: action.payload.isDone}
+        //                                                                             : event),
+        //     };
+        // }
 
         default: {
             return state;
@@ -52,10 +52,10 @@ export const eventsActionCreators = {
     setUsers: (users: UserType[]): EventActionsType => ({type: EventsActionEnum.SET_USERS, payload: users}),
     setEvents: (events: IEventType[]): EventActionsType => ({type: EventsActionEnum.SET_EVENTS, payload: events}),
     setSelectedDate: (date: string): EventActionsType => ({type: EventsActionEnum.SET_SELECTED_DATE, payload: date}),
-    setIsDone: (isDone: boolean, eventId: string): EventActionsType => ({
-                                                                            type: EventsActionEnum.SET_IS_DONE, 
-                                                                            payload: {isDone, eventId}
-                                                                        }),
+    // setIsDone: (isDone: boolean, eventId: string): EventActionsType => ({
+    //                                                                         type: EventsActionEnum.SET_IS_DONE, 
+    //                                                                         payload: {isDone, eventId}
+    //                                                                     }),
 
     fetchUsersThunk: () => async (dispatch: Dispatch) => {
         try {
@@ -93,6 +93,24 @@ export const eventsActionCreators = {
             const currentUserEventsArr = json.filter(event => event.guest === username);
 
             dispatch(eventsActionCreators.setEvents(currentUserEventsArr));
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
+    fetchIsDoneThunk: (isDone: boolean, eventId: string) => (dispatch: Dispatch) => {
+        try {
+            const events = localStorage.getItem('events') || '[]';
+
+            const json = JSON.parse(events) as IEventType[];
+
+            const newEvents = json.map(event => event.id === eventId
+                                                                    ? {...event, isDone: isDone}
+                                                                    : event);
+
+            dispatch(eventsActionCreators.setEvents(newEvents));
+
+            localStorage.setItem('events', JSON.stringify(newEvents));
         } catch (error) {
             console.log(error);
         }

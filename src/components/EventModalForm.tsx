@@ -11,7 +11,7 @@ interface EventModalFormPropsType {
 };
 
 const EventModalForm: FC<EventModalFormPropsType> = ({ events, selectDate }) => {
-    const { setIsDone } = useDispatchedActions();
+    const { fetchIsDoneThunk } = useDispatchedActions();
 
     const thisDateEventsAuthors: string[] = [];
     
@@ -63,7 +63,7 @@ const EventModalForm: FC<EventModalFormPropsType> = ({ events, selectDate }) => 
                                                             style={{marginLeft: '40px'}}/>
 
                                             <Checkbox 
-                                                onChange={() => {setIsDone(!event.isDone, event.id)}}
+                                                onChange={() => {fetchIsDoneThunk(!event.isDone, event.id)}}
                                                 checked={event.isDone}
                                                 style={{marginLeft: '40px'}}>
                                                 Done
