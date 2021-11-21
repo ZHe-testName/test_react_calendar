@@ -3,4 +3,6 @@ export interface IEventType {
     guest: string,
     date: string,
     description: string,
+    isDone: boolean,
+    id: string,
 };

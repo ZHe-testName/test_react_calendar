@@ -33,6 +33,15 @@ const eventReducer = (state: EventState = initialState, action: EventActionsType
             };
         }
 
+        case EventsActionEnum.SET_IS_DONE: {
+            return {
+                ...state,
+                events: state.events.map(event => event.id === action.payload.eventId
+                                                                                    ? {...event, isDone: action.payload.isDone}
+                                                                                    : event),
+            };
+        }
+
         default: {
             return state;
         }
@@ -43,6 +52,10 @@ export const eventsActionCreators = {
     setUsers: (users: UserType[]): EventActionsType => ({type: EventsActionEnum.SET_USERS, payload: users}),
     setEvents: (events: IEventType[]): EventActionsType => ({type: EventsActionEnum.SET_EVENTS, payload: events}),
     setSelectedDate: (date: string): EventActionsType => ({type: EventsActionEnum.SET_SELECTED_DATE, payload: date}),
+    setIsDone: (isDone: boolean, eventId: string): EventActionsType => ({
+                                                                            type: EventsActionEnum.SET_IS_DONE, 
+                                                                            payload: {isDone, eventId}
+                                                                        }),
 
     fetchUsersThunk: () => async (dispatch: Dispatch) => {
         try {

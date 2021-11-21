@@ -6,6 +6,7 @@ import { UserType } from "../models/IUser";
 import { Moment } from "moment";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { formatDate } from "../utils/formatDate";
+import { v1 } from 'uuid';
 
 interface EventFormPropsType {
     guests: UserType[],
@@ -18,6 +19,8 @@ const EventForm: FC<EventFormPropsType> = ({ guests, submit }) => {
         date: '',
         description: '',
         guest: '',
+        isDone: false,
+        id: v1(),
     });
 
     const { user } = useTypedSelector(state => state.authReducer);

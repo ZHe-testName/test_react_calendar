@@ -1,6 +1,11 @@
 import { IEventType } from "../../../models/IEvent";
 import { UserType } from "../../../models/IUser";
 
+interface IsDonePayloadType {
+    isDone: boolean,
+    eventId: string,
+};
+
 export interface EventState {
     guests: UserType[],
     events: IEventType[],
@@ -11,6 +16,7 @@ export enum EventsActionEnum {
     SET_USERS = 'SET_USERS',
     SET_EVENTS = 'SET_EVENTS',
     SET_SELECTED_DATE = 'SET_SELECTED_DATE',
+    SET_IS_DONE = 'SET_IS_DONE',
 };
 
 interface SetUsersActionType {
@@ -29,6 +35,12 @@ interface SetSelectedDateActionType {
     payload: string,
 };
 
+interface SetIsDoneActionType {
+    type: EventsActionEnum.SET_IS_DONE,
+    payload: IsDonePayloadType,
+};
+
 export type EventActionsType = SetUsersActionType
                             | SetEventsActionType
-                            | SetSelectedDateActionType;
+                            | SetSelectedDateActionType
+                            | SetIsDoneActionType;

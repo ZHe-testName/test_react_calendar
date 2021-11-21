@@ -26,8 +26,8 @@ const EventCalendar: FC<IEventCalendarProps> = ({ events, showEventModal }) => {
         return (
           <div>
               {
-                  dayEventsArr.map((event, i) => <Badge 
-                                                    key={i} 
+                  dayEventsArr.map(event => <Badge 
+                                                    key={event.id} 
                                                     status='success' 
                                                     text={event.description} />)
               }
